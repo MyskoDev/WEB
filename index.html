@@ -1,0 +1,728 @@
+﻿<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imto Photos - Professionell Fotografi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-card: #222;
+            --text-primary: #fff;
+            --text-secondary: #ccc;
+            --accent-gold: #d4af37;
+            --accent-blue: #4f9cf9;
+            --border-color: #333;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(79, 156, 249, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 156, 249, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 156, 249, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--accent-gold);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-item {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-gold);
+        }
+
+        .portfolio-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 255, 255, 0.1) 10px,
+                    rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: shimmer 3s linear infinite;
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+        }
+
+        .portfolio-info h3 {
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .portfolio-info p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 6rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-gold);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), var(--bg-card));
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .price-period {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .features {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .features li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .features li:before {
+            content: "✓";
+            color: var(--accent-gold);
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+
+        /* Donation Section */
+        .donation {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+        }
+
+        .donation-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .donation h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+
+        .donation p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .donation-amounts {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .donation-btn {
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--accent-gold);
+            background: transparent;
+            color: var(--accent-gold);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .donation-btn:hover, .donation-btn.active {
+            background: var(--accent-gold);
+            color: #000;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-primary);
+            padding: 3rem 2rem 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(79, 156, 249, 0.5);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(79, 156, 249, 0.8), 0 0 40px rgba(118, 75, 162, 0.3);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Light theme */
+        .light-theme {
+            --bg-primary: #f8f9fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+        }
+
+        .light-theme .portfolio-image {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .donation-amounts {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav>
+    <div class="nav-container">
+        <div class="logo">IMTO PHOTOS</div>
+        <ul class="nav-links">
+            <li><a href="#home">Hem</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#pricing">Priser</a></li>
+            <li><a href="#donation">Stöd Oss</a></li>
+            <li><a href="#contact">Kontakt</a></li>
+            <li><button class="theme-toggle" onclick="toggleTheme()">🌙 Ljus</button></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>IMTO PHOTOS</h1>
+        <p>Fånga livets magiska ögonblick med professionell fotografi som berättar din historia</p>
+        <div class="cta-buttons">
+            <a href="#portfolio" class="btn btn-primary">Se Portfolio</a>
+            <a href="#pricing" class="btn btn-secondary">Våra Tjänster</a>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section class="portfolio" id="portfolio">
+    <h2 class="section-title">Vårt Portfolio</h2>
+    <div class="portfolio-grid">
+        <div class="portfolio-item">
+            <div class="portfolio-image">Bröllopsfotografering</div>
+            <div class="portfolio-info">
+                <h3>Bröllop & Ceremonier</h3>
+                <p>Odödliggör er kärlekshistoria med romantiska och tidlösa bilder som ni kommer att uppskatta för alltid.</p>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <div class="portfolio-image">Porträttfotografering</div>
+            <div class="portfolio-info">
+                <h3>Porträtt & Headshots</h3>
+                <p>Professionella porträtt som fångar er personlighet och skapar en stark visuell identitet.</p>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <div class="portfolio-image">Eventfotografering</div>
+            <div class="portfolio-info">
+                <h3>Företagsevent</h3>
+                <p>Dokumentera era viktiga företagsevent och milstolpar med dynamiska och engagerande bilder.</p>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <div class="portfolio-image">Familjefotografering</div>
+            <div class="portfolio-info">
+                <h3>Familj & Barn</h3>
+                <p>Naturliga och hjärtvärmande familjebilder som fångar kärlek och glädje i varje ögonblick.</p>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <div class="portfolio-image">Produktfotografering</div>
+            <div class="portfolio-info">
+                <h3>Produkt & Kommersiell</h3>
+                <p>Högkvalitativa produktbilder som får era varor att sticka ut och öka försäljningen.</p>
+            </div>
+        </div>
+        <div class="portfolio-item">
+            <div class="portfolio-image">Naturfotografering</div>
+            <div class="Portfolio-info">
+                <h3>Natur & Landskap</h3>
+                <p>Hisnande naturbilder som visar världens skönhet genom vår konstnärliga vision.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing" id="pricing">
+    <div class="pricing-container">
+        <h2 class="section-title">Våra Paket</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Basic</h3>
+                <div class="price">1,499 kr<span class="price-period">/månad</span></div>
+                <ul class="features">
+                    <li>2 fotosessioner per månad</li>
+                    <li>20 redigerade bilder</li>
+                    <li>Digital leverans</li>
+                    <li>Grundläggande redigering</li>
+                    <li>Email support</li>
+                </ul>
+                <a href="#" class="btn btn-secondary">Välj Basic</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Premium</h3>
+                <div class="price">2,999 kr<span class="price-period">/månad</span></div>
+                <ul class="features">
+                    <li>5 fotosessioner per månad</li>
+                    <li>50 redigerade bilder</li>
+                    <li>Digital + Print leverans</li>
+                    <li>Avancerad redigering</li>
+                    <li>Prioriterad support</li>
+                    <li>Online galleri</li>
+                </ul>
+                <a href="#" class="btn btn-primary">Välj Premium</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Professional</h3>
+                <div class="price">4,999 kr<span class="price-period">/månad</span></div>
+                <ul class="features">
+                    <li>Obegränsade fotosessioner</li>
+                    <li>100+ redigerade bilder</li>
+                    <li>Full kommersiell licens</li>
+                    <li>Exklusiv redigering</li>
+                    <li>24/7 support</li>
+                    <li>Personlig fotograf</li>
+                    <li>Marknadsföringsmaterial</li>
+                </ul>
+                <a href="#" class="btn btn-secondary">Välj Professional</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Donation Section -->
+<section class="donation" id="donation">
+    <div class="donation-card">
+        <h2>Stöd Vår Konstform</h2>
+        <p>Din donation hjälper oss att fortsätta skapa vacker konst och stödja fotografisk utbildning för kommande generationer. Varje bidrag gör skillnad!</p>
+        <div class="donation-amounts">
+            <button class="donation-btn" onclick="selectDonation(this, 50)">50 kr</button>
+            <button class="donation-btn" onclick="selectDonation(this, 100)">100 kr</button>
+            <button class="donation-btn active" onclick="selectDonation(this, 250)">250 kr</button>
+            <button class="donation-btn" onclick="selectDonation(this, 500)">500 kr</button>
+            <button class="donation-btn" onclick="selectDonation(this, 'custom')">Anpassat</button>
+        </div>
+        <a href="#" class="btn btn-primary" onclick="processDonation()">Donera Nu</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="mailto:info@imtophotos.se">info@imtophotos.se</a>
+            <a href="tel:+46701234567">+46 70 123 45 67</a>
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">LinkedIn</a>
+        </div>
+        <p>&copy; 2025 Imto Photos. Alla rättigheter förbehållna.</p>
+    </div>
+</footer>
+
+<script>
+    // Theme toggle
+    function toggleTheme() {
+        document.body.classList.toggle('light-theme');
+        const toggle = document.querySelector('.theme-toggle');
+        toggle.textContent = document.body.classList.contains('light-theme') ? '🌙 Mörk' : '🌙 Ljus';
+    }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Donation selection
+    let selectedAmount = 250;
+
+    function selectDonation(button, amount) {
+        document.querySelectorAll('.donation-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        if (amount === 'custom') {
+            const customAmount = prompt('Ange önskat belopp (kr):');
+            if (customAmount && !isNaN(customAmount)) {
+                selectedAmount = parseInt(customAmount);
+                button.textContent = customAmount + ' kr';
+            }
+        } else {
+            selectedAmount = amount;
+        }
+    }
+
+    function processDonation() {
+        alert(`Tack för din generosa donation på ${selectedAmount} kr! Du kommer att omdirigeras till betalningssidan.`);
+    }
+
+    // Portfolio hover effects
+    document.querySelectorAll('.portfolio-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Navbar background on scroll
+    window.addEventListener('scroll', function() {
+        const nav = document.querySelector('nav');
+        if (window.scrollY > 50) {
+            nav.style.background = 'rgba(10, 10, 10, 0.98)';
+        } else {
+            nav.style.background = 'rgba(10, 10, 10, 0.95)';
+        }
+    });
+
+    // Animation on scroll
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    // Observe portfolio items
+    document.querySelectorAll('.portfolio-item, .pricing-card').forEach(item => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(30px)';
+        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(item);
+    });
+</script>
+</body>
+</html>
